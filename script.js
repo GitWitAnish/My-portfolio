@@ -8,78 +8,16 @@ class BackendPortfolio {
     }
 
     init() {
-        // Safety timeout to ensure boot screen doesn't stay forever
-        setTimeout(() => {
-            this.skipBootSequence();
-        }, 10000); // 10 seconds max
+        // Make sure body is scrollable
+        document.body.style.overflow = 'auto';
         
-        // ESC key to skip boot sequence
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.skipBootSequence();
-            }
-        }, { once: true });
-        
-        this.bootSequence();
+        // Initialize all components
         this.setupNavigation();
         this.setupTerminalTabs();
         this.setupAboutTabs();
         this.setupLogs();
         this.setupAnimations();
         this.setupRandomStatus();
-    }
-
-    // Boot Sequence Animation
-    bootSequence() {
-        const bootScreen = document.getElementById('bootScreen');
-        const progressText = document.querySelector('.progress-text');
-        
-        // Check if elements exist
-        if (!bootScreen || !progressText) {
-            console.error('Boot screen elements not found');
-            this.skipBootSequence();
-            return;
-        }
-        
-        const bootMessages = [
-            'Initializing backend services...',
-            'Loading API endpoints...',
-            'Connecting to databases...',
-            'Starting microservices...',
-            'Brewing coffee...',
-            'Portfolio ready!'
-        ];
-        
-        let messageIndex = 0;
-
-        const showBootMessage = () => {
-            if (messageIndex < bootMessages.length) {
-                if (progressText) {
-                    progressText.textContent = bootMessages[messageIndex];
-                }
-                messageIndex++;
-                setTimeout(showBootMessage, 800);
-            } else {
-                setTimeout(() => {
-                    if (bootScreen) {
-                        bootScreen.classList.add('hidden');
-                        document.body.style.overflow = 'auto';
-                    }
-                    this.initializeDefaultContent();
-                }, 1000);
-            }
-        };
-
-        setTimeout(showBootMessage, 500);
-    }
-
-    // Fallback method to skip boot sequence if there are issues
-    skipBootSequence() {
-        const bootScreen = document.getElementById('bootScreen');
-        if (bootScreen) {
-            bootScreen.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
         this.initializeDefaultContent();
     }
 
