@@ -36,7 +36,7 @@
 </head>
 <body>
     <!-- Terminal Boot Screen -->
-    <div class="boot-screen hidden" id="bootScreen">
+    <div class="boot-screen" id="bootScreen">
         <div class="boot-container">
             <div class="boot-header">
                 <span class="boot-user">root@anish-server</span>
@@ -226,15 +226,52 @@
     </footer>
 
     <script>
-        console.log('INLINE SCRIPT LOADING...');
+        console.log('Portfolio JavaScript Loading...');
         
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded - inline script working');
+            console.log('DOM loaded - starting boot sequence...');
             
-            // Populate about.json content directly
-            const codeContent = document.querySelector('.code-content');
-            if (codeContent) {
-                const aboutJson = `{
+            // Boot Sequence Animation
+            const bootScreen = document.getElementById('bootScreen');
+            const progressText = document.querySelector('.progress-text');
+            
+            if (bootScreen && progressText) {
+                const bootMessages = [
+                    'Starting backend services...',
+                    'Loading API endpoints...',
+                    'Connecting to databases...',
+                    'Initializing microservices...',
+                    'Brewing coffee...',
+                    'Portfolio ready!'
+                ];
+                
+                let messageIndex = 0;
+                
+                const showBootMessage = function() {
+                    if (messageIndex < bootMessages.length) {
+                        progressText.textContent = bootMessages[messageIndex];
+                        messageIndex++;
+                        setTimeout(showBootMessage, 600);
+                    } else {
+                        setTimeout(function() {
+                            bootScreen.classList.add('hidden');
+                            document.body.style.overflow = 'auto';
+                            console.log('Boot sequence completed');
+                        }, 1000);
+                    }
+                };
+                
+                setTimeout(showBootMessage, 500);
+            } else {
+                console.log('Boot screen elements not found, skipping boot sequence');
+            }
+            
+            console.log('Initializing portfolio components...');
+            
+            // Content for all tabs
+            const tabContent = {
+                'about.json': {
+                    content: `{
   "personal": {
     "name": "Anish Karki",
     "title": "Backend Developer || ML Engineer",
@@ -244,42 +281,226 @@
 
     "current_focus": [
       "ML-Enhanced Backend Systems",
-      "Real-time Model Serving", 
+      "Real-time Model Serving",
       "AI/ML API Architecture",
-      "MLOps & Model Deployment"
+      "MLOps & Model Deployment",
+      "Scalable Data Pipelines"
     ],
+
+    "personal_interests": {
+      "hobbies": ["Gym", "Coding", "Football", "Chess", "Guitar", "Anime"],
+      "current_status": "Currently doing Bachelor in Computer Engineering at IOE WRC"
+    },
 
     "contact_info": {
       "email": "anishkarki753@gmail.com",
       "github": "github.com/anishkarki",
-      "linkedin": "linkedin.com/in/anish-karki"
+      "linkedin": "linkedin.com/in/anish-karki",
+      "location": "Available for remote work"
     },
 
     "fun_facts": {
       "debugging_style": "Print statements everywhere",
       "favorite_error": "Works on my machine",
-      "coffee_dependency": "Critical"
+      "coffee_dependency": "Critical",
+      "stack_overflow_visits": "Daily",
+      "deployment_time": "Always Friday 5PM"
     }
   }
-}`;
-                
-                codeContent.innerHTML = '<pre><code class="json">' + aboutJson + '</code></pre>';
-                console.log('About content loaded successfully');
-                
-                // Update line numbers
+}`,
+                    lines: 32,
+                    size: '2.1KB'
+                },
+                'skills.json': {
+                    content: `{
+  "technical_skills": {
+    "programming_languages": [
+      {
+        "name": "Python",
+        "proficiency": "Experienced",
+        "description": "Data analysis, ML pipelines",
+        "libraries": ["NumPy", "Pandas", "Matplotlib", "Scikit-Learn", "PyTorch", "TensorFlow"]
+      },
+      {
+        "name": "C/C++",
+        "proficiency": "Experienced",
+        "description": "Systems programming, algorithms, competitive programming",
+        "use_cases": ["Data structures", "Performance-critical applications", "System-level programming"]
+      },
+      {
+        "name": "JavaScript",
+        "proficiency": "Intermediate",
+        "description": "Backend development, API integration",
+        "runtime": ["Node.js"],
+        "frameworks": ["Express.js"]
+      }
+    ],
+    "backend_development": {
+      "frameworks": [
+        {
+          "name": "Node.js",
+          "description": "RESTful APIs, microservices"
+        },
+        {
+          "name": "Express.js",
+          "description": "Web server development, API endpoints"
+        }
+      ]
+    },
+    "databases": {
+      "relational": [
+        {
+          "name": "PostgreSQL",
+          "use_cases": ["Complex queries", "Data integrity", "ACID compliance"]
+        },
+        {
+          "name": "MySQL",
+          "use_cases": ["Web applications", "Data storage", "Performance optimization"]
+        }
+      ],
+      "nosql": [
+        {
+          "name": "MongoDB",
+          "use_cases": ["Document storage", "Flexible schemas", "JSON-like data"]
+        }
+      ]
+    },
+    "machine_learning": {
+      "libraries": [
+        {
+          "name": "NumPy",
+          "description": "Numerical computing, array operations"
+        },
+        {
+          "name": "Pandas",
+          "description": "Data manipulation, analysis, preprocessing"
+        },
+        {
+          "name": "Matplotlib",
+          "description": "Data visualization, plotting, charts"
+        },
+        {
+          "name": "Scikit-Learn",
+          "description": "Traditional ML algorithms, model training"
+        },
+        {
+          "name": "PyTorch",
+          "description": "Deep learning, neural networks, research"
+        },
+        {
+          "name": "TensorFlow",
+          "description": "Machine learning, production ML models"
+        }
+      ]
+    }
+  }
+}`,
+                    lines: 68,
+                    size: '2.8KB'
+                },
+                'experience.json': {
+                    content: `{
+  "work_experience": [
+    {
+      "own_projects": "Backend Developer",
+      "responsibilities": [
+        "Developing RESTful APIs using Node.js and Express",
+        "Implementing authentication and authorization mechanisms",
+        "Optimizing database queries for performance",
+        "Collaborating with frontend developers to integrate user-facing elements"
+      ]
+    }
+  ],
+
+  "why_hire_me": [
+    {
+      "core_value_proposition": "Skilled coder with good humor"
+    }
+  ]
+}`,
+                    lines: 15,
+                    size: '1.2KB'
+                }
+            };
+
+            // Function to update line numbers
+            function updateLineNumbers(content) {
                 const lineNumbers = document.querySelector('.line-numbers');
                 if (lineNumbers) {
+                    const lines = content.split('\\n').length;
                     let nums = '';
-                    for(let i = 1; i <= 28; i++) {
+                    for(let i = 1; i <= lines; i++) {
                         nums += '<span>' + i + '</span>';
                     }
                     lineNumbers.innerHTML = nums;
                 }
             }
+
+            // Function to switch tab content
+            function switchTabContent(tabName) {
+                const codeContent = document.querySelector('.code-content');
+                const lineCount = document.querySelector('.line-count');
+                const fileSize = document.querySelector('.file-size');
+                
+                if (codeContent && tabContent[tabName]) {
+                    const content = tabContent[tabName];
+                    codeContent.innerHTML = '<pre><code class="json">' + content.content + '</code></pre>';
+                    
+                    if (lineCount) lineCount.textContent = 'Lines: ' + content.lines;
+                    if (fileSize) fileSize.textContent = 'Size: ' + content.size;
+                    
+                    updateLineNumbers(content.content);
+                    console.log('Switched to', tabName);
+                }
+            }
+
+            // Initialize about section with default content
+            switchTabContent('about.json');
+
+            // Setup tab switching
+            const tabs = document.querySelectorAll('.editor-tabs .tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(function(t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    
+                    const tabName = tab.textContent.trim();
+                    switchTabContent(tabName);
+                });
+            });
+
+            // Setup terminal content with tab switching
+            showBashTerminal(); // Load default content
             
-            // Setup terminal content
-            const terminal = document.getElementById('mainTerminal');
-            if (terminal) {
+            // Terminal tab switching functionality
+            const terminalTabs = document.querySelectorAll('.terminal-tabs .tab');
+            terminalTabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    terminalTabs.forEach(function(t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    
+                    const tabName = tab.textContent.trim();
+                    console.log('Terminal tab clicked:', tabName);
+                    
+                    switch(tabName) {
+                        case 'api.log':
+                            showApiLogs();
+                            break;
+                        case 'db.sql':
+                            showDbSql();
+                            break;
+                        case 'bash':
+                        default:
+                            showBashTerminal();
+                            break;
+                    }
+                });
+            });
+            
+            function showBashTerminal() {
+                const terminal = document.getElementById('mainTerminal');
+                if (!terminal) return;
+                
                 terminal.innerHTML = `
                     <div class="terminal-line">
                         <span class="prompt">anish@engineer:~/portfolio$</span>
@@ -293,27 +514,161 @@
                     </div>
                     <div class="output json-output">
                         <pre>{
-  "name": "Anish Karki", 
+  "name": "Anish Karki",
   "role": "Backend Developer || ML Engineer",
-  "status": "Available for hire",
-  "coffee_level": "Critical"
+  "specialization": ["Existential Crisis Management"],
+  "current_stack": {
+    "languages": ["Python", "JavaScript", "C/C++"],
+    "frameworks": ["Node.js", "Express.js"],
+    "databases": ["PostgreSQL", "MySQL", "MongoDB"],
+    "ml_tools": ["NumPy", "Pandas", "PyTorch", "TensorFlow", "Scikit-Learn"]
+  },
+  "bugs_created": "∞",
+  "bugs_fixed": "∞ - 1",
+  "coffee_consumption": "Lethal levels",
+  "status": "(please hire me, I need therapy money)"
 }</pre>
                     </div>
+                    
+                    <div class="terminal-line">
+                        <span class="prompt">anish@engineer:~/portfolio$</span>
+                        <span class="command">systemctl status</span>
+                    </div>
+                    <div class="output services-output">
+                        <div class="service-line">   Loaded: loaded (/etc/systemd/system/reality/)</div>
+                        <div class="service-line">   Active: <span class="status-active">barely functioning</span> since birth</div>
+                        <div class="service-line">   Memory: 32GB (31.9GB used by Chrome tabs)</div>
+                    </div>
+                    
+                    <div class="terminal-line active">
+                        <span class="prompt">anish@engineer:~/portfolio$</span>
+                        <span class="command">sudo rm -rf /life</span>
+                        <span class="cursor-blink">_</span>
+                    </div>
                 `;
-                console.log('Terminal content loaded successfully');
+                console.log('Bash terminal content loaded');
             }
             
-            // Basic tab switching
-            const tabs = document.querySelectorAll('.editor-tabs .tab');
-            tabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    tabs.forEach(function(t) { t.classList.remove('active'); });
-                    tab.classList.add('active');
-                    console.log('Tab clicked:', tab.textContent);
+            function showApiLogs() {
+                const terminal = document.getElementById('mainTerminal');
+                if (!terminal) return;
+                
+                terminal.innerHTML = `
+                    <div class="log-line error">
+                        <span class="log-timestamp">2024-10-11 14:57:01.000</span>
+                        <span class="log-level">[PANIC]</span>
+                        <span class="log-message">POST /api/v1/hotfix - 500 Internal Server Error | Fix broke more things | Classic Friday deployment</span>
+                    </div>
+                    <div class="log-line success">
+                        <span class="log-timestamp">2024-10-11 15:30:22.555</span>
+                        <span class="log-level">[RESOLVED]</span>
+                        <span class="log-message">GET /api/v1/rollback - 200 OK | Rollback #47 successful | Lesson learned: Never deploy on Friday</span>
+                    </div>
+                    <div class="log-line warning">
+                        <span class="log-timestamp">2024-10-11 15:35:01.337</span>
+                        <span class="log-level">[RETROSPECTIVE]</span>
+                        <span class="log-message">POST /api/v1/postmortem - 201 Created | Action items: 23 | Items actually implemented: TBD</span>
+                    </div>
+                    <div class="log-line error">
+                        <span class="log-timestamp">2024-10-11 10:30:45.123</span>
+                        <span class="log-level">[DEBUGGING]</span>
+                        <span class="log-message">GET /api/v1/bug-hunt - 404 Not Found | "It was working yesterday" - every developer ever</span>
+                    </div>
+                    <div class="log-line warning">
+                        <span class="log-timestamp">2024-10-11 13:00:00.000</span>
+                        <span class="log-level">[LUNCH]</span>
+                        <span class="log-message">GET /api/v1/lunch-break - 403 Forbidden | Lunch is for quitters | Survival mode: ACTIVATED</span>
+                    </div>
+                    <div class="log-line success">
+                        <span class="log-timestamp">2024-10-11 23:59:59.999</span>
+                        <span class="log-level">[EPIPHANY]</span>
+                        <span class="log-message">GET /api/v1/solution - 200 OK | Bug found: Missing semicolon | 8 hours well spent</span>
+                    </div>
+                    <div class="terminal-line active">
+                        <span class="prompt">dev@chaos-server:/var/log$</span>
+                        <span class="command">grep "Friday" api.log | wc -l && echo "reasons to quit"</span>
+                        <span class="cursor-blink">_</span>
+                    </div>
+                `;
+                console.log('API logs content loaded');
+            }
+            
+            function showDbSql() {
+                const terminal = document.getElementById('mainTerminal');
+                if (!terminal) return;
+                
+                terminal.innerHTML = `
+                    <div class="sql-query">
+                        <span class="prompt">postgres=#</span>
+                        <span class="command">SELECT * FROM developers WHERE sleep_hours > 4;</span>
+                    </div>
+                    <div class="sql-result">
+                        <div class="sql-info">(0 rows)</div>
+                    </div>
+                    <div class="sql-query">
+                        <span class="prompt">postgres=#</span>
+                        <span class="command">UPDATE developers SET coffee_level = 'CRITICAL' WHERE deadline = 'yesterday';</span>
+                    </div>
+                    <div class="sql-result">
+                        <div class="sql-info">UPDATE 42 rows affected. Caffeine dependency increasing exponentially.</div>
+                    </div>
+                    <div class="sql-query">
+                        <span class="prompt">postgres=#</span>
+                        <span class="command">SELECT COUNT(*) FROM bugs WHERE status = 'it_works_on_my_machine';</span>
+                    </div>
+                    <div class="sql-result">
+                        <div class="table-row header"> count </div>
+                        <div class="table-row">-------</div>
+                        <div class="table-row">   ∞</div>
+                    </div>
+                    <div class="sql-query">
+                        <span class="prompt">postgres=#</span>
+                        <span class="command">CREATE VIEW all_my_regrets AS SELECT * FROM career_decisions WHERE year >= 2020;</span>
+                    </div>
+                    <div class="sql-result">
+                        <div class="sql-info">VIEW created. Warning: May cause existential crisis when queried.</div>
+                    </div>
+                    <div class="terminal-line active">
+                        <span class="prompt">postgres=#</span>
+                        <span class="command">-- ROLLBACK; -- Save me from my own decisions</span>
+                        <span class="cursor-blink">_</span>
+                    </div>
+                `;
+                console.log('Database SQL content loaded');
+            }
+
+            // Setup smooth navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active state
+                    navLinks.forEach(function(l) { l.classList.remove('active'); });
+                    link.classList.add('active');
+
+                    // Smooth scroll to section
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 });
             });
-            
-            console.log('All inline functionality loaded!');
+
+            // Cursor blinking animation
+            setInterval(function() {
+                const cursors = document.querySelectorAll('.cursor-blink');
+                cursors.forEach(function(cursor) {
+                    cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+                });
+            }, 600);
+
+            console.log('Portfolio fully initialized with all features!');
         });
     </script>
 </body>
