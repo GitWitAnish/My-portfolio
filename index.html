@@ -90,225 +90,412 @@
         
         /* Mobile Responsive Styles */
         @media (max-width: 768px) {
+            body {
+                font-size: 12px !important;
+            }
+            
             .section-container {
-                padding: 1rem;
-                margin: 0;
+                padding: 0.75rem !important;
+                margin: 0 !important;
             }
             
             .nav-header {
-                padding: 0.5rem 0;
+                padding: 0.4rem 0 !important;
             }
             
             .nav-container {
-                padding: 0 1rem;
+                padding: 0 0.75rem !important;
+            }
+            
+            .nav-brand {
+                font-size: 0.8rem !important;
             }
             
             .nav-links {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 0.5rem;
+                gap: 0.3rem !important;
             }
             
             .nav-link {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.9rem;
+                padding: 0.4rem 0.6rem !important;
+                font-size: 0.75rem !important;
             }
             
             .terminal-editor, .terminal-window {
-                margin: 0.5rem 0;
-                font-size: 0.9rem;
+                margin: 0.4rem 0 !important;
+                font-size: 0.7rem !important;
             }
             
             .editor-header, .terminal-header {
-                padding: 0.5rem;
+                padding: 0.4rem !important;
             }
             
             .editor-tabs, .terminal-tabs {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.25rem;
+                gap: 0.2rem !important;
             }
             
             .tab {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.8rem;
+                padding: 0.3rem 0.5rem !important;
+                font-size: 0.65rem !important;
                 flex: 1;
                 text-align: center;
                 min-width: fit-content;
             }
             
             .editor-controls {
-                font-size: 0.7rem;
-                padding: 0.25rem;
+                font-size: 0.6rem !important;
+                padding: 0.2rem !important;
             }
             
             .editor-body, .terminal-body {
-                font-size: 0.8rem;
+                font-size: 0.65rem !important;
                 overflow-x: auto;
+                padding: 0.4rem !important;
             }
             
             .line-numbers {
-                display: none; /* Hide line numbers on mobile for space */
+                display: none !important;
             }
             
-            .code-content {
-                padding: 0.5rem;
+            .code-content, .code-content pre, .code-content code {
+                padding: 0.3rem !important;
+                font-size: 0.65rem !important;
+                line-height: 1.3 !important;
             }
             
             .terminal-line {
                 word-wrap: break-word;
                 overflow-wrap: break-word;
+                font-size: 0.65rem !important;
+                margin: 0.1rem 0 !important;
             }
             
             .prompt {
                 display: inline-block;
-                margin-right: 0.25rem;
+                margin-right: 0.2rem !important;
+                font-size: 0.65rem !important;
             }
             
             .command {
                 display: inline-block;
                 word-break: break-all;
+                font-size: 0.65rem !important;
             }
             
             .boot-container {
-                width: 95%;
-                max-width: none;
-                margin: 0 1rem;
+                width: 95% !important;
+                max-width: none !important;
+                margin: 0 1rem !important;
+                padding: 1rem !important;
+            }
+            
+            .boot-header {
+                font-size: 0.8rem !important;
             }
             
             .boot-content {
-                font-size: 0.9rem;
-                padding: 1rem;
+                font-size: 0.75rem !important;
+                padding: 0.75rem !important;
             }
             
             .boot-line {
-                margin: 0.3rem 0;
+                margin: 0.25rem 0 !important;
                 word-wrap: break-word;
+                font-size: 0.7rem !important;
             }
             
             .progress-text {
-                font-size: 0.8rem;
+                font-size: 0.65rem !important;
             }
             
             /* System Logs Mobile */
             .logs-section {
-                margin: 1rem 0;
+                margin: 0.75rem 0 !important;
             }
             
             .log-controls {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.25rem;
-                margin-bottom: 0.5rem;
+                gap: 0.2rem !important;
+                margin-bottom: 0.4rem !important;
             }
             
             .log-btn {
                 flex: 1;
                 min-width: fit-content;
-                padding: 0.4rem 0.6rem;
-                font-size: 0.8rem;
+                padding: 0.3rem 0.5rem !important;
+                font-size: 0.65rem !important;
             }
             
             .log-content {
-                font-size: 0.7rem;
-                max-height: 300px;
+                font-size: 0.6rem !important;
+                max-height: 250px !important;
                 overflow-y: auto;
+                line-height: 1.2 !important;
             }
             
             .log-entry {
-                padding: 0.25rem;
+                padding: 0.2rem !important;
                 word-wrap: break-word;
+                margin: 0.1rem 0 !important;
             }
             
             .log-timestamp {
                 display: block;
-                font-size: 0.6rem;
-                margin-bottom: 0.1rem;
+                font-size: 0.55rem !important;
+                margin-bottom: 0.05rem !important;
+            }
+            
+            .log-level {
+                font-size: 0.6rem !important;
+            }
+            
+            .log-message {
+                font-size: 0.6rem !important;
             }
             
             /* Contact Section Mobile */
             .contact-section {
-                padding: 1rem;
+                padding: 0.75rem !important;
             }
             
             .contact-terminal {
-                font-size: 0.8rem;
+                font-size: 0.65rem !important;
             }
             
             /* Footer Mobile */
             .footer {
-                padding: 1rem;
-                font-size: 0.8rem;
+                padding: 0.75rem !important;
+                font-size: 0.65rem !important;
             }
             
             .footer-terminal {
-                padding: 0.5rem;
+                padding: 0.4rem !important;
             }
             
             /* JSON Output Mobile */
-            .json-output pre {
-                font-size: 0.7rem;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                overflow-x: auto;
+            .json-output, .json-output pre, .json-output code {
+                font-size: 0.6rem !important;
+                white-space: pre-wrap !important;
+                word-wrap: break-word !important;
+                overflow-x: auto !important;
+                line-height: 1.2 !important;
             }
             
             /* SQL Content Mobile */
             .sql-query, .sql-result {
-                font-size: 0.7rem;
+                font-size: 0.6rem !important;
                 word-wrap: break-word;
+                line-height: 1.2 !important;
             }
             
             /* API Logs Mobile */
             .log-line {
-                font-size: 0.7rem;
+                font-size: 0.6rem !important;
                 word-wrap: break-word;
-                margin: 0.2rem 0;
+                margin: 0.15rem 0 !important;
+                line-height: 1.2 !important;
             }
             
             .log-message {
                 display: block;
-                margin-top: 0.1rem;
+                margin-top: 0.05rem !important;
                 word-wrap: break-word;
+                font-size: 0.6rem !important;
+            }
+            
+            /* Additional mobile-specific overrides */
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 0.9rem !important;
+                line-height: 1.3 !important;
+                margin: 0.5rem 0 !important;
+            }
+            
+            p {
+                font-size: 0.7rem !important;
+                line-height: 1.3 !important;
+                margin: 0.3rem 0 !important;
+            }
+            
+            /* Terminal specific elements */
+            .terminal-prompt, .terminal-command, .terminal-output {
+                font-size: 0.65rem !important;
+            }
+            
+            /* Code blocks and preformatted text */
+            pre, code {
+                font-size: 0.6rem !important;
+                line-height: 1.2 !important;
             }
         }
         
         @media (max-width: 480px) {
+            body {
+                font-size: 11px !important;
+            }
+            
             .section-container {
-                padding: 0.5rem;
+                padding: 0.5rem !important;
+            }
+            
+            .nav-brand {
+                font-size: 0.7rem !important;
             }
             
             .nav-links {
                 flex-direction: column;
                 width: 100%;
+                gap: 0.2rem !important;
             }
             
             .nav-link {
                 width: 100%;
                 text-align: center;
-                margin: 0.1rem 0;
+                margin: 0.05rem 0 !important;
+                padding: 0.3rem 0.5rem !important;
+                font-size: 0.65rem !important;
             }
             
             .tab {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.4rem;
+                font-size: 0.6rem !important;
+                padding: 0.25rem 0.3rem !important;
+            }
+            
+            .boot-container {
+                padding: 0.75rem !important;
+            }
+            
+            .boot-header {
+                font-size: 0.7rem !important;
             }
             
             .boot-content {
-                padding: 0.5rem;
+                padding: 0.5rem !important;
             }
             
             .boot-line {
-                font-size: 0.8rem;
+                font-size: 0.65rem !important;
+                margin: 0.2rem 0 !important;
+            }
+            
+            .progress-text {
+                font-size: 0.55rem !important;
             }
             
             .terminal-body, .editor-body {
-                font-size: 0.7rem;
+                font-size: 0.6rem !important;
+                padding: 0.3rem !important;
             }
             
-            .json-output pre {
-                font-size: 0.6rem;
+            .code-content, .code-content pre, .code-content code {
+                font-size: 0.55rem !important;
+                padding: 0.25rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            .terminal-line, .prompt, .command {
+                font-size: 0.55rem !important;
+            }
+            
+            .log-content {
+                font-size: 0.55rem !important;
+                max-height: 200px !important;
+            }
+            
+            .log-btn {
+                font-size: 0.55rem !important;
+                padding: 0.25rem 0.4rem !important;
+            }
+            
+            .log-timestamp {
+                font-size: 0.5rem !important;
+            }
+            
+            .log-level, .log-message {
+                font-size: 0.55rem !important;
+            }
+            
+            .json-output, .json-output pre, .json-output code {
+                font-size: 0.5rem !important;
+                line-height: 1.1 !important;
+            }
+            
+            .sql-query, .sql-result {
+                font-size: 0.5rem !important;
+            }
+            
+            .log-line {
+                font-size: 0.5rem !important;
+                margin: 0.1rem 0 !important;
+            }
+            
+            .contact-terminal, .footer-terminal {
+                font-size: 0.55rem !important;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 0.8rem !important;
+            }
+            
+            p {
+                font-size: 0.6rem !important;
+            }
+            
+            pre, code {
+                font-size: 0.5rem !important;
+            }
+        }
+        
+        /* Extra small mobile devices */
+        @media (max-width: 360px) {
+            body {
+                font-size: 10px !important;
+            }
+            
+            .section-container {
+                padding: 0.4rem !important;
+            }
+            
+            .nav-brand {
+                font-size: 0.6rem !important;
+            }
+            
+            .nav-link {
+                font-size: 0.6rem !important;
+                padding: 0.25rem 0.4rem !important;
+            }
+            
+            .tab {
+                font-size: 0.55rem !important;
+                padding: 0.2rem 0.25rem !important;
+            }
+            
+            .boot-header, .boot-line {
+                font-size: 0.6rem !important;
+            }
+            
+            .terminal-body, .editor-body, .code-content, .code-content pre, .code-content code {
+                font-size: 0.5rem !important;
+            }
+            
+            .terminal-line, .prompt, .command, .log-content, .log-btn {
+                font-size: 0.5rem !important;
+            }
+            
+            .json-output, .json-output pre, .json-output code {
+                font-size: 0.45rem !important;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 0.7rem !important;
+            }
+            
+            p, pre, code {
+                font-size: 0.5rem !important;
             }
         }
     </style>
