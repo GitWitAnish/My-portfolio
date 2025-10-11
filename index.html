@@ -87,6 +87,230 @@
             color: var(--text-secondary);
             margin: 0.5rem 0;
         }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1rem;
+                margin: 0;
+            }
+            
+            .nav-header {
+                padding: 0.5rem 0;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .terminal-editor, .terminal-window {
+                margin: 0.5rem 0;
+                font-size: 0.9rem;
+            }
+            
+            .editor-header, .terminal-header {
+                padding: 0.5rem;
+            }
+            
+            .editor-tabs, .terminal-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+            
+            .tab {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+                flex: 1;
+                text-align: center;
+                min-width: fit-content;
+            }
+            
+            .editor-controls {
+                font-size: 0.7rem;
+                padding: 0.25rem;
+            }
+            
+            .editor-body, .terminal-body {
+                font-size: 0.8rem;
+                overflow-x: auto;
+            }
+            
+            .line-numbers {
+                display: none; /* Hide line numbers on mobile for space */
+            }
+            
+            .code-content {
+                padding: 0.5rem;
+            }
+            
+            .terminal-line {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .prompt {
+                display: inline-block;
+                margin-right: 0.25rem;
+            }
+            
+            .command {
+                display: inline-block;
+                word-break: break-all;
+            }
+            
+            .boot-container {
+                width: 95%;
+                max-width: none;
+                margin: 0 1rem;
+            }
+            
+            .boot-content {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
+            
+            .boot-line {
+                margin: 0.3rem 0;
+                word-wrap: break-word;
+            }
+            
+            .progress-text {
+                font-size: 0.8rem;
+            }
+            
+            /* System Logs Mobile */
+            .logs-section {
+                margin: 1rem 0;
+            }
+            
+            .log-controls {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .log-btn {
+                flex: 1;
+                min-width: fit-content;
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            .log-content {
+                font-size: 0.7rem;
+                max-height: 300px;
+                overflow-y: auto;
+            }
+            
+            .log-entry {
+                padding: 0.25rem;
+                word-wrap: break-word;
+            }
+            
+            .log-timestamp {
+                display: block;
+                font-size: 0.6rem;
+                margin-bottom: 0.1rem;
+            }
+            
+            /* Contact Section Mobile */
+            .contact-section {
+                padding: 1rem;
+            }
+            
+            .contact-terminal {
+                font-size: 0.8rem;
+            }
+            
+            /* Footer Mobile */
+            .footer {
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .footer-terminal {
+                padding: 0.5rem;
+            }
+            
+            /* JSON Output Mobile */
+            .json-output pre {
+                font-size: 0.7rem;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                overflow-x: auto;
+            }
+            
+            /* SQL Content Mobile */
+            .sql-query, .sql-result {
+                font-size: 0.7rem;
+                word-wrap: break-word;
+            }
+            
+            /* API Logs Mobile */
+            .log-line {
+                font-size: 0.7rem;
+                word-wrap: break-word;
+                margin: 0.2rem 0;
+            }
+            
+            .log-message {
+                display: block;
+                margin-top: 0.1rem;
+                word-wrap: break-word;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-container {
+                padding: 0.5rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                margin: 0.1rem 0;
+            }
+            
+            .tab {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.4rem;
+            }
+            
+            .boot-content {
+                padding: 0.5rem;
+            }
+            
+            .boot-line {
+                font-size: 0.8rem;
+            }
+            
+            .terminal-body, .editor-body {
+                font-size: 0.7rem;
+            }
+            
+            .json-output pre {
+                font-size: 0.6rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="./style.css?v=3.0">
     <link rel="stylesheet" href="/style.css?v=3.0">
