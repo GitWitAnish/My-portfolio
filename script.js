@@ -8,17 +8,38 @@ class BackendPortfolio {
     }
 
     init() {
+        console.log('Initializing portfolio...');
+        
         // Make sure body is scrollable
         document.body.style.overflow = 'auto';
         
-        // Initialize all components
-        this.setupNavigation();
-        this.setupTerminalTabs();
-        this.setupAboutTabs();
-        this.setupLogs();
-        this.setupAnimations();
-        this.setupRandomStatus();
-        this.initializeDefaultContent();
+        try {
+            // Initialize all components
+            console.log('Setting up navigation...');
+            this.setupNavigation();
+            
+            console.log('Setting up terminal tabs...');
+            this.setupTerminalTabs();
+            
+            console.log('Setting up about tabs...');
+            this.setupAboutTabs();
+            
+            console.log('Setting up logs...');
+            this.setupLogs();
+            
+            console.log('Setting up animations...');
+            this.setupAnimations();
+            
+            console.log('Setting up random status...');
+            this.setupRandomStatus();
+            
+            console.log('Initializing default content...');
+            this.initializeDefaultContent();
+            
+            console.log('Portfolio initialization complete!');
+        } catch (error) {
+            console.error('Error during initialization:', error);
+        }
     }
 
     // Navigation Setup
@@ -780,5 +801,11 @@ class BackendPortfolio {
 
 // Initialize the portfolio when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.portfolio = new BackendPortfolio();
+    console.log('Script loaded successfully');
+    try {
+        window.portfolio = new BackendPortfolio();
+        console.log('Portfolio initialized successfully');
+    } catch (error) {
+        console.error('Error initializing portfolio:', error);
+    }
 });
