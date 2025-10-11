@@ -4,31 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anish Karki - Backend Developer ||  ML Engineer</title>
-    <link rel="stylesheet" href="./style.css?v=2.0">
-    <link rel="stylesheet" href="/style.css?v=2.0">
-    <style>
-        /* Critical CSS fallback */
-        body { 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'JetBrains Mono', monospace; 
-            background: #0d1117; 
-            color: #f0f6fc; 
-        }
-        .boot-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0d1117;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hidden { display: none !important; }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -226,10 +202,7 @@
     </footer>
 
     <script>
-        console.log('Portfolio JavaScript Loading...');
-        
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded - starting boot sequence...');
             
             // Boot Sequence Animation
             const bootScreen = document.getElementById('bootScreen');
@@ -256,17 +229,17 @@
                         setTimeout(function() {
                             bootScreen.classList.add('hidden');
                             document.body.style.overflow = 'auto';
-                            console.log('Boot sequence completed');
+
                         }, 1000);
                     }
                 };
                 
                 setTimeout(showBootMessage, 500);
             } else {
-                console.log('Boot screen elements not found, skipping boot sequence');
+
             }
             
-            console.log('Initializing portfolio components...');
+
             
             // Content for all tabs
             const tabContent = {
@@ -450,7 +423,7 @@
                     if (fileSize) fileSize.textContent = 'Size: ' + content.size;
                     
                     updateLineNumbers(content.content);
-                    console.log('Switched to', tabName);
+
                 }
             }
 
@@ -480,7 +453,7 @@
                     tab.classList.add('active');
                     
                     const tabName = tab.textContent.trim();
-                    console.log('Terminal tab clicked:', tabName);
+
                     
                     switch(tabName) {
                         case 'api.log':
@@ -546,7 +519,7 @@
                         <span class="cursor-blink">_</span>
                     </div>
                 `;
-                console.log('Bash terminal content loaded');
+
             }
             
             function showApiLogs() {
@@ -590,7 +563,7 @@
                         <span class="cursor-blink">_</span>
                     </div>
                 `;
-                console.log('API logs content loaded');
+
             }
             
             function showDbSql() {
@@ -634,7 +607,7 @@
                         <span class="cursor-blink">_</span>
                     </div>
                 `;
-                console.log('Database SQL content loaded');
+
             }
 
             // Setup smooth navigation
@@ -660,6 +633,64 @@
                 });
             });
 
+            // System Logs functionality
+            const logContent = document.getElementById('logsContent');
+            const logButtons = document.querySelectorAll('.log-btn');
+            
+            const logData = {
+                system: [
+                    { time: '14:32:15', level: 'info', message: 'Backend services initialized successfully' },
+                    { time: '14:32:18', level: 'success', message: 'Database connection established' },
+                    { time: '14:32:22', level: 'info', message: 'Portfolio application started on port 8080' },
+                    { time: '14:32:28', level: 'info', message: 'System monitoring enabled' },
+                    { time: '14:32:35', level: 'success', message: 'All services operational' }
+                ],
+                app: [
+                    { time: '14:30:45', level: 'info', message: 'User session created for portfolio visitor' },
+                    { time: '14:31:28', level: 'info', message: 'Project showcase data loaded' },
+                    { time: '14:32:01', level: 'info', message: 'Navigation interaction logged' },
+                    { time: '14:32:15', level: 'success', message: 'About section JSON parsed successfully' },
+                    { time: '14:32:22', level: 'info', message: 'Portfolio performance optimized' }
+                ],
+                error: [
+                    { time: '14:28:45', level: 'warning', message: 'Slow network response detected' },
+                    { time: '14:29:12', level: 'error', message: 'Failed to load external resource - retrying...' },
+                    { time: '14:30:33', level: 'warning', message: 'High CPU usage detected: 85%' },
+                    { time: '14:31:56', level: 'info', message: 'Portfolio optimization completed successfully' },
+                    { time: '14:32:18', level: 'warning', message: 'Memory usage approaching threshold' }
+                ]
+            };
+
+            function displayLogs(logType) {
+                if (!logContent) return;
+                
+                const logs = logData[logType] || [];
+                logContent.innerHTML = logs.map(function(log) {
+                    return '<div class="log-entry">' +
+                        '<span class="log-timestamp">[' + log.time + ']</span>' +
+                        '<span class="log-level-' + log.level + '">[' + log.level.toUpperCase() + ']</span>' +
+                        ' ' + log.message +
+                        '</div>';
+                }).join('');
+            }
+
+            // Initialize with system logs
+            displayLogs('system');
+
+            // Setup log button switching
+            logButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    logButtons.forEach(function(b) { b.classList.remove('active'); });
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const logType = btn.getAttribute('data-log');
+                    displayLogs(logType);
+
+                });
+            });
+
             // Cursor blinking animation
             setInterval(function() {
                 const cursors = document.querySelectorAll('.cursor-blink');
@@ -668,7 +699,7 @@
                 });
             }, 600);
 
-            console.log('Portfolio fully initialized with all features!');
+
         });
     </script>
 </body>
