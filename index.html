@@ -4,7 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anish Karki - Backend Developer ||  ML Engineer</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Critical inline CSS for immediate styling */
+        :root {
+            --terminal-bg: #0d1117;
+            --terminal-secondary: #161b22;
+            --terminal-border: #30363d;
+            --terminal-green: #39d353;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--terminal-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--terminal-bg);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .nav-header {
+            background: var(--terminal-secondary);
+            border-bottom: 1px solid var(--terminal-border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .terminal-editor, .terminal-window {
+            background: var(--terminal-secondary);
+            border: 1px solid var(--terminal-border);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .tab.active {
+            background: var(--terminal-green);
+            color: var(--terminal-bg);
+        }
+        
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            background: var(--terminal-border);
+            color: var(--text-secondary);
+        }
+        
+        .prompt {
+            color: var(--terminal-green);
+        }
+        
+        .command {
+            color: var(--text-primary);
+        }
+        
+        .output {
+            color: var(--text-secondary);
+            margin: 0.5rem 0;
+        }
+    </style>
+    <link rel="stylesheet" href="./style.css?v=3.0">
+    <link rel="stylesheet" href="/style.css?v=3.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
