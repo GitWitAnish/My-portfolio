@@ -225,6 +225,96 @@
         </div>
     </footer>
 
-    <script src="minimal.js"></script>
+    <script>
+        console.log('INLINE SCRIPT LOADING...');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded - inline script working');
+            
+            // Populate about.json content directly
+            const codeContent = document.querySelector('.code-content');
+            if (codeContent) {
+                const aboutJson = `{
+  "personal": {
+    "name": "Anish Karki",
+    "title": "Backend Developer || ML Engineer",
+    "location": "Pokhara, Nepal",
+    "education": "Computer Engineering, IOE WRC",
+    "philosophy": "Build scalable backend systems with intelligent ML integration",
+
+    "current_focus": [
+      "ML-Enhanced Backend Systems",
+      "Real-time Model Serving", 
+      "AI/ML API Architecture",
+      "MLOps & Model Deployment"
+    ],
+
+    "contact_info": {
+      "email": "anishkarki753@gmail.com",
+      "github": "github.com/anishkarki",
+      "linkedin": "linkedin.com/in/anish-karki"
+    },
+
+    "fun_facts": {
+      "debugging_style": "Print statements everywhere",
+      "favorite_error": "Works on my machine",
+      "coffee_dependency": "Critical"
+    }
+  }
+}`;
+                
+                codeContent.innerHTML = '<pre><code class="json">' + aboutJson + '</code></pre>';
+                console.log('About content loaded successfully');
+                
+                // Update line numbers
+                const lineNumbers = document.querySelector('.line-numbers');
+                if (lineNumbers) {
+                    let nums = '';
+                    for(let i = 1; i <= 28; i++) {
+                        nums += '<span>' + i + '</span>';
+                    }
+                    lineNumbers.innerHTML = nums;
+                }
+            }
+            
+            // Setup terminal content
+            const terminal = document.getElementById('mainTerminal');
+            if (terminal) {
+                terminal.innerHTML = `
+                    <div class="terminal-line">
+                        <span class="prompt">anish@engineer:~/portfolio$</span>
+                        <span class="command">whoami</span>
+                    </div>
+                    <div class="output">Computer Engineer</div>
+                    
+                    <div class="terminal-line">
+                        <span class="prompt">anish@engineer:~/portfolio$</span>
+                        <span class="command">cat profile.json</span>
+                    </div>
+                    <div class="output json-output">
+                        <pre>{
+  "name": "Anish Karki", 
+  "role": "Backend Developer || ML Engineer",
+  "status": "Available for hire",
+  "coffee_level": "Critical"
+}</pre>
+                    </div>
+                `;
+                console.log('Terminal content loaded successfully');
+            }
+            
+            // Basic tab switching
+            const tabs = document.querySelectorAll('.editor-tabs .tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(function(t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    console.log('Tab clicked:', tab.textContent);
+                });
+            });
+            
+            console.log('All inline functionality loaded!');
+        });
+    </script>
 </body>
 </html>
