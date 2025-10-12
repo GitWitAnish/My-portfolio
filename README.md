@@ -1,7 +1,5 @@
-# Anish Karki - Portfolio
 
-Vibe coded.
+terminal based vibe coded portfolio.
 
-## Live Site
 
 [anish69.com.np](https://anish69.com.np/)
