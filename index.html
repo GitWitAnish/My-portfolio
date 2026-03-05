@@ -13,6 +13,15 @@
     />
   </head>
   <body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+      <div class="loader-inner">
+        <div class="loader-name">Anish Karki</div>
+        <div class="loader-tagline">ML Engineer & Backend Developer</div>
+        <div class="loader-line"><div class="loader-fill"></div></div>
+      </div>
+    </div>
+
     <nav>
       <a href="#" class="logo">Anish Karki</a>
       <div class="nav-links">
@@ -181,6 +190,15 @@
 
     <script>
       (function () {
+        // Loader
+        var loader = document.getElementById("loader");
+        window.addEventListener("load", function () {
+          setTimeout(function () {
+            loader.classList.add("done");
+          }, 2000);
+        });
+
+        // Scroll reveal
         var els = document.querySelectorAll(".fade-in");
         var observer = new IntersectionObserver(
           function (entries) {
