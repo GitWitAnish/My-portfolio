@@ -1,1195 +1,200 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anish Karki </title>
-    <style>
-        /* Critical inline CSS for immediate styling */
-        :root {
-            --terminal-bg: #0d1117;
-            --terminal-secondary: #161b22;
-            --terminal-border: #30363d;
-            --terminal-green: #39d353;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--terminal-bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-        
-        .boot-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--terminal-bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        .nav-header {
-            background: var(--terminal-secondary);
-            border-bottom: 1px solid var(--terminal-border);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .terminal-editor, .terminal-window {
-            background: var(--terminal-secondary);
-            border: 1px solid var(--terminal-border);
-            border-radius: 8px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .tab.active {
-            background: var(--terminal-green);
-            color: var(--terminal-bg);
-        }
-        
-        .tab {
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            background: var(--terminal-border);
-            color: var(--text-secondary);
-        }
-        
-        .prompt {
-            color: var(--terminal-green);
-        }
-        
-        .command {
-            color: var(--text-primary);
-        }
-        
-        .output {
-            color: var(--text-secondary);
-            margin: 0.5rem 0;
-        }
-        
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            body {
-                font-size: 12px !important;
-            }
-            
-            .section-container {
-                padding: 0.75rem !important;
-                margin: 0 !important;
-            }
-            
-            .nav-header {
-                padding: 0.4rem 0 !important;
-            }
-            
-            .nav-container {
-                padding: 0 0.75rem !important;
-            }
-            
-            .nav-brand {
-                font-size: 0.8rem !important;
-            }
-            
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.3rem !important;
-            }
-            
-            .nav-link {
-                padding: 0.4rem 0.6rem !important;
-                font-size: 0.75rem !important;
-            }
-            
-            .terminal-editor, .terminal-window {
-                margin: 0.4rem 0 !important;
-                font-size: 0.7rem !important;
-            }
-            
-            .editor-header, .terminal-header {
-                padding: 0.4rem !important;
-            }
-            
-            .editor-tabs, .terminal-tabs {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.2rem !important;
-            }
-            
-            .tab {
-                padding: 0.3rem 0.5rem !important;
-                font-size: 0.65rem !important;
-                flex: 1;
-                text-align: center;
-                min-width: fit-content;
-            }
-            
-            .editor-controls {
-                font-size: 0.6rem !important;
-                padding: 0.2rem !important;
-            }
-            
-            .editor-body, .terminal-body {
-                font-size: 0.65rem !important;
-                overflow-x: auto;
-                padding: 0.4rem !important;
-            }
-            
-            .line-numbers {
-                display: none !important;
-            }
-            
-            .code-content, .code-content pre, .code-content code {
-                padding: 0.3rem !important;
-                font-size: 0.65rem !important;
-                line-height: 1.3 !important;
-            }
-            
-            .terminal-line {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                font-size: 0.65rem !important;
-                margin: 0.1rem 0 !important;
-            }
-            
-            .prompt {
-                display: inline-block;
-                margin-right: 0.2rem !important;
-                font-size: 0.65rem !important;
-            }
-            
-            .command {
-                display: inline-block;
-                word-break: break-all;
-                font-size: 0.65rem !important;
-            }
-            
-            .boot-container {
-                width: 95% !important;
-                max-width: none !important;
-                margin: 0 1rem !important;
-                padding: 1rem !important;
-            }
-            
-            .boot-header {
-                font-size: 0.8rem !important;
-            }
-            
-            .boot-content {
-                font-size: 0.75rem !important;
-                padding: 0.75rem !important;
-            }
-            
-            .boot-line {
-                margin: 0.25rem 0 !important;
-                word-wrap: break-word;
-                font-size: 0.7rem !important;
-            }
-            
-            .progress-text {
-                font-size: 0.65rem !important;
-            }
-            
-            /* System Logs Mobile */
-            .logs-section {
-                margin: 0.75rem 0 !important;
-            }
-            
-            .log-controls {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.2rem !important;
-                margin-bottom: 0.4rem !important;
-            }
-            
-            .log-btn {
-                flex: 1;
-                min-width: fit-content;
-                padding: 0.3rem 0.5rem !important;
-                font-size: 0.65rem !important;
-            }
-            
-            .log-content {
-                font-size: 0.6rem !important;
-                max-height: 250px !important;
-                overflow-y: auto;
-                line-height: 1.2 !important;
-            }
-            
-            .log-entry {
-                padding: 0.2rem !important;
-                word-wrap: break-word;
-                margin: 0.1rem 0 !important;
-            }
-            
-            .log-timestamp {
-                display: block;
-                font-size: 0.55rem !important;
-                margin-bottom: 0.05rem !important;
-            }
-            
-            .log-level {
-                font-size: 0.6rem !important;
-            }
-            
-            .log-message {
-                font-size: 0.6rem !important;
-            }
-            
-            /* Contact Section Mobile */
-            .contact-section {
-                padding: 0.75rem !important;
-            }
-            
-            .contact-terminal {
-                font-size: 0.65rem !important;
-            }
-            
-            /* Footer Mobile */
-            .footer {
-                padding: 0.75rem !important;
-                font-size: 0.65rem !important;
-            }
-            
-            .footer-terminal {
-                padding: 0.4rem !important;
-            }
-            
-            /* JSON Output Mobile */
-            .json-output, .json-output pre, .json-output code {
-                font-size: 0.6rem !important;
-                white-space: pre-wrap !important;
-                word-wrap: break-word !important;
-                overflow-x: auto !important;
-                line-height: 1.2 !important;
-            }
-            
-            /* SQL Content Mobile */
-            .sql-query, .sql-result {
-                font-size: 0.6rem !important;
-                word-wrap: break-word;
-                line-height: 1.2 !important;
-            }
-            
-            /* API Logs Mobile */
-            .log-line {
-                font-size: 0.6rem !important;
-                word-wrap: break-word;
-                margin: 0.15rem 0 !important;
-                line-height: 1.2 !important;
-            }
-            
-            .log-message {
-                display: block;
-                margin-top: 0.05rem !important;
-                word-wrap: break-word;
-                font-size: 0.6rem !important;
-            }
-            
-            /* Additional mobile-specific overrides */
-            h1, h2, h3, h4, h5, h6 {
-                font-size: 0.9rem !important;
-                line-height: 1.3 !important;
-                margin: 0.5rem 0 !important;
-            }
-            
-            p {
-                font-size: 0.7rem !important;
-                line-height: 1.3 !important;
-                margin: 0.3rem 0 !important;
-            }
-            
-            /* Terminal specific elements */
-            .terminal-prompt, .terminal-command, .terminal-output {
-                font-size: 0.65rem !important;
-            }
-            
-            /* Code blocks and preformatted text */
-            pre, code {
-                font-size: 0.6rem !important;
-                line-height: 1.2 !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 11px !important;
-            }
-            
-            .section-container {
-                padding: 0.5rem !important;
-            }
-            
-            .nav-brand {
-                font-size: 0.7rem !important;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.2rem !important;
-            }
-            
-            .nav-link {
-                width: 100%;
-                text-align: center;
-                margin: 0.05rem 0 !important;
-                padding: 0.3rem 0.5rem !important;
-                font-size: 0.65rem !important;
-            }
-            
-            .tab {
-                font-size: 0.6rem !important;
-                padding: 0.25rem 0.3rem !important;
-            }
-            
-            .boot-container {
-                padding: 0.75rem !important;
-            }
-            
-            .boot-header {
-                font-size: 0.7rem !important;
-            }
-            
-            .boot-content {
-                padding: 0.5rem !important;
-            }
-            
-            .boot-line {
-                font-size: 0.65rem !important;
-                margin: 0.2rem 0 !important;
-            }
-            
-            .progress-text {
-                font-size: 0.55rem !important;
-            }
-            
-            .terminal-body, .editor-body {
-                font-size: 0.6rem !important;
-                padding: 0.3rem !important;
-            }
-            
-            .code-content, .code-content pre, .code-content code {
-                font-size: 0.55rem !important;
-                padding: 0.25rem !important;
-                line-height: 1.2 !important;
-            }
-            
-            .terminal-line, .prompt, .command {
-                font-size: 0.55rem !important;
-            }
-            
-            .log-content {
-                font-size: 0.55rem !important;
-                max-height: 200px !important;
-            }
-            
-            .log-btn {
-                font-size: 0.55rem !important;
-                padding: 0.25rem 0.4rem !important;
-            }
-            
-            .log-timestamp {
-                font-size: 0.5rem !important;
-            }
-            
-            .log-level, .log-message {
-                font-size: 0.55rem !important;
-            }
-            
-            .json-output, .json-output pre, .json-output code {
-                font-size: 0.5rem !important;
-                line-height: 1.1 !important;
-            }
-            
-            .sql-query, .sql-result {
-                font-size: 0.5rem !important;
-            }
-            
-            .log-line {
-                font-size: 0.5rem !important;
-                margin: 0.1rem 0 !important;
-            }
-            
-            .contact-terminal, .footer-terminal {
-                font-size: 0.55rem !important;
-            }
-            
-            h1, h2, h3, h4, h5, h6 {
-                font-size: 0.8rem !important;
-            }
-            
-            p {
-                font-size: 0.6rem !important;
-            }
-            
-            pre, code {
-                font-size: 0.5rem !important;
-            }
-        }
-        
-        /* Extra small mobile devices */
-        @media (max-width: 360px) {
-            body {
-                font-size: 10px !important;
-            }
-            
-            .section-container {
-                padding: 0.4rem !important;
-            }
-            
-            .nav-brand {
-                font-size: 0.6rem !important;
-            }
-            
-            .nav-link {
-                font-size: 0.6rem !important;
-                padding: 0.25rem 0.4rem !important;
-            }
-            
-            .tab {
-                font-size: 0.55rem !important;
-                padding: 0.2rem 0.25rem !important;
-            }
-            
-            .boot-header, .boot-line {
-                font-size: 0.6rem !important;
-            }
-            
-            .terminal-body, .editor-body, .code-content, .code-content pre, .code-content code {
-                font-size: 0.5rem !important;
-            }
-            
-            .terminal-line, .prompt, .command, .log-content, .log-btn {
-                font-size: 0.5rem !important;
-            }
-            
-            .json-output, .json-output pre, .json-output code {
-                font-size: 0.45rem !important;
-            }
-            
-            h1, h2, h3, h4, h5, h6 {
-                font-size: 0.7rem !important;
-            }
-            
-            p, pre, code {
-                font-size: 0.5rem !important;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="./style.css?v=3.0">
-    <link rel="stylesheet" href="/style.css?v=3.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Terminal Boot Screen -->
-    <div class="boot-screen" id="bootScreen">
-        <div class="boot-container">
-            <div class="boot-header">
-                <span class="boot-user">root@anish-server</span>
-                <span class="boot-path">:~#</span>
-            </div>
-            <div class="boot-content">
-                <div class="boot-line">Starting backend services... </div>
-                <div class="boot-line">Loading API endpoints... </div>
-                <div class="boot-line">Connecting to databases...  </div>
-                <div class="boot-line">Initializing microservices... </div>
-                <div class="boot-line">Brewing coffee... </div>
-                <div class="boot-line">Portfolio ready! </div>
-                <div class="boot-progress">
-                    <div class="progress-bar"></div>
-                    <span class="progress-text">Loading...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="terminal-nav" id="mainNav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <span class="prompt">anish@engineer:~$</span>
-                <span class="cursor-blink">_</span>
-            </div>
-            <div class="nav-menu">
-                <a href="#home" class="nav-link active" data-cmd="ls -la /">
-                    <i class="fas fa-home"></i>
-                    <span>home</span>
-                </a>
-                <a href="#about" class="nav-link" data-cmd="cat about.json">
-                    <i class="fas fa-user"></i>
-                    <span>about</span>
-                </a>
-                <a href="#contact" class="nav-link" data-cmd="ping contact.json">
-                    <i class="fas fa-terminal"></i>
-                    <span>contact</span>
-                </a>
-            </div>
-            <div class="nav-status">
-                <span class="status-indicator online"></span>
-                <span class="status-text">API Online</span>
-            </div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anish Karki</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="#" class="logo">Anish Karki</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="terminal-grid">
-            <!-- Main Terminal -->
-            <div class="main-terminal">
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <div class="window-controls">
-                            <span class="control red"></span>
-                            <span class="control yellow"></span>
-                            <span class="control green"></span>
-                        </div>
-                        <span class="window-title">anish@engineer: ~/portfolio</span>
-                        <div class="terminal-tabs">
-                            <span class="tab active">bash</span>
-                            <span class="tab">api.log</span>
-                            <span class="tab">db.sql</span>
-                        </div>
-                    </div>
-                    <div class="terminal-body" id="mainTerminal">
-                        <!-- Content will be populated by JavaScript -->
-                    </div>
-                </div>
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <p class="hero-label fade-in">
+             ML Engineer  &amp; Backend Developer
+            </p>
+            <h1 class="fade-in">
+              I build systems that<br />
+              <em>actually work</em>.
+            </h1>
+            <p class="hero-sub fade-in">
+              Computer Engineering student at IOE WRC, Pokhara. I write backend
+              code, train models and occasionally sleep.
+            </p>
+          </div>
+          <div class="hero-photo fade-in">
+            <img src="photo.webp" alt="Anish Karki" />
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- About -->
+      <section id="about" class="about">
+        <div class="section-header fade-in">
+          <span class="section-num">01</span>
+          <h2>About</h2>
+        </div>
+        <div class="about-content">
+          <div class="about-text fade-in">
+            <p>
+              I'm a ML engineer and backend developer who enjoys building
+              scalable services, optimizing databases and teaching neural
+              networks to behave. When I'm not debugging at 3AM, I'm at the gym,
+              playing football, strumming guitar or watching anime.
+            </p>
+            <p>
+              My philosophy is simple: build things that are scalable, reliable,
+              and don't break on Fridays.
+            </p>
+          </div>
+          <div class="about-details fade-in">
+            <div class="detail">
+              <span class="detail-label">Location</span>
+              <span>Pokhara, Nepal</span>
             </div>
+            <div class="detail">
+              <span class="detail-label">Education</span>
+              <span>Computer Engineering, IOE WRC</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">Status</span>
+              <span>Available for opportunities</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <hr class="divider" />
 
-
-
-
-
+      <!-- Work / Skills -->
+      <section id="work" class="work">
+        <div class="section-header fade-in">
+          <span class="section-num">02</span>
+          <h2>What I do</h2>
         </div>
 
-        <!-- System Logs -->
-        <div class="system-logs">
-            <div class="logs-header">
-                <h3><i class="fas fa-file-alt"></i> System Logs</h3>
-                <div class="log-controls">
-                    <button class="log-btn active" data-log="system">System</button>
-                    <button class="log-btn" data-log="app">Application</button>
-                    <button class="log-btn" data-log="error">Errors</button>
-                </div>
+        <div class="work-grid">
+          <div class="work-card fade-in">
+            <h3>Backend Development</h3>
+            <p>
+              Authentication systems, database optimization and scalable
+              backend services with Node.js, Express, PostgreSQL, MySQL and
+              MongoDB.
+            </p>
+            <div class="tags">
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>PostgreSQL</span>
+              <span>MySQL</span>
+              <span>MongoDB</span>
             </div>
-            <div class="logs-content" id="logsContent">
-                <!-- Log entries will be populated by JavaScript -->
+          </div>
+          <div class="work-card fade-in">
+            <h3>Machine Learning</h3>
+            <p>
+              ML pipelines, model training, data preprocessing and deploying
+              deep learning models into production-ready APIs.
+            </p>
+            <div class="tags">
+              <span>Python</span>
+              <span>PyTorch</span>
+              <span>TensorFlow</span>
+              <span>Scikit-Learn</span>
+              <span>Pandas</span>
+              <span>NumPy</span>
             </div>
+          </div>
+          <div class="work-card fade-in">
+            <h3>Systems &amp; Algorithms</h3>
+            <p>
+              Performance-critical applications, data structures, and
+              system-level programming in C/C++ and Python.
+            </p>
+            <div class="tags">
+              <span>C/C++</span>
+              <span>Python</span>
+              <span>JavaScript</span>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="section-container">
-            <div class="terminal-editor">
-                <div class="editor-header">
-                    <div class="editor-tabs">
-                        <span class="tab active">about.json</span>
-                        <span class="tab">skills.json</span>
-                        <span class="tab">experience.json</span>
-                    </div>
-                    <div class="editor-controls">
-                        <span class="line-count">Lines: 45</span>
-                        <span class="file-size">Size: 2.1KB</span>
-                    </div>
-                </div>
-                <div class="editor-body">
-                    <div class="line-numbers">
-                        <!-- Line numbers will be generated by JavaScript -->
-                    </div>
-                    <div class="code-content">
-                        <!-- Content will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
+      <hr class="divider" />
+
+      <!-- Contact -->
+      <section id="contact" class="contact">
+        <div class="section-header fade-in">
+          <span class="section-num">03</span>
+          <h2>Get in touch</h2>
         </div>
-    </section>
-
-
-
-
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="section-container">
-            <div class="contact-terminal">
-                <div class="terminal-header">
-                    <div class="window-controls">
-                        <span class="control red"></span>
-                        <span class="control yellow"></span>
-                        <span class="control green"></span>
-                    </div>
-                    <span class="window-title">contact.json - API Response</span>
-                </div>
-                <div class="terminal-body">
-                    <div class="contact-json">
-                        <pre><code>{
-  "contact": {
-    "name": "Anish Karki",
-    "role": "Backend Developer || ML Engineer",
-    "email": "anishkarki5710@gmail.com",
-    "location": {
-      "country": "Nepal",
-      "city": "Pokhara",
-      "timezone": "UTC+5:45"
-    },
-    "social": {
-      "github": "https://github.com/GitWitAnish",
-      "linkedin": "https://www.linkedin.com/in/anish-karki-/",
-      "instagram": "_anishkarki"
-    },
-    "response_guaranteed": "within_24_hours"
-  }
-}</code></pre>
-                    </div>
-                </div>
-            </div>
-
-
+        <div class="contact-content fade-in">
+          <p>Got a project, a question or just want to say hi? Reach out.</p>
+          <a href="mailto:anishkarki5710@gmail.com" class="email-link"
+            >anishkarki5710@gmail.com</a
+          >
+          <div class="social-links">
+            <a
+              href="https://github.com/GitWitAnish"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            <a
+              href="https://www.linkedin.com/in/anish-karki-/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn</a
+            >
+            <a
+              href="https://instagram.com/_anishkarki"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Instagram</a
+            >
+          </div>
         </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-terminal">
-            <div class="terminal-line">
-                <span class="prompt">anish@engineer:~$</span>
-                <span class="command">echo "Thanks for visiting my portfolio!"</span>
-            </div>
-            <div class="output">
-                Thanks for visiting my portfolio!
-            </div>
-            <div class="terminal-line">
-                <span class="prompt">anish@engineer:~$</span>
-                <span class="command">uptime</span>
-            </div>
-            <div class="output">
-                Portfolio running since 2024 • Uptime: 99.9% (sanity: 12%) • Built with lots of coffee, Copilot, and existential dread
-                <br> No servers were harmed in the making of this portfolio (well, maybe a few)
-            </div>
-        </div>
+    <footer>
+      <span>Anish Karki &copy; 2024</span>
+      <span>Built with coffee &amp; questionable life choices.</span>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // Boot Sequence Animation
-            const bootScreen = document.getElementById('bootScreen');
-            const progressText = document.querySelector('.progress-text');
-            
-            if (bootScreen && progressText) {
-                const bootMessages = [
-                    'Starting backend services...',
-                    'Loading API endpoints...',
-                    'Connecting to databases...',
-                    'Initializing microservices...',
-                    'Brewing coffee...',
-                    'Portfolio ready!'
-                ];
-                
-                let messageIndex = 0;
-                
-                const showBootMessage = function() {
-                    if (messageIndex < bootMessages.length) {
-                        progressText.textContent = bootMessages[messageIndex];
-                        messageIndex++;
-                        setTimeout(showBootMessage, 600);
-                    } else {
-                        setTimeout(function() {
-                            bootScreen.classList.add('hidden');
-                            document.body.style.overflow = 'auto';
-
-                        }, 1000);
-                    }
-                };
-                
-                setTimeout(showBootMessage, 500);
-            } else {
-
+      (function () {
+        var els = document.querySelectorAll(".fade-in");
+        var observer = new IntersectionObserver(
+          function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting) {
+                entries[i].target.classList.add("visible");
+              }
             }
-            
-
-            
-            // Content for all tabs
-            const tabContent = {
-                'about.json': {
-                    content: `{
-  "personal": {
-    "name": "Anish Karki",
-    "title": "Backend Developer || ML Engineer",
-    "location": "Pokhara, Nepal",
-    "education": "Computer Engineering, IOE WRC",
-    "philosophy": "Build scalable backend systems with intelligent ML integration",
-    },
-
-    "current_focus": [
-      "ML-Enhanced Backend Systems",
-      "Real-time Model Serving",
-      "AI/ML API Architecture",
-      "Model Deployment",
-      "Scalable Data Pipelines"
-    ],
-
-    "personal_interests": {
-      "hobbies": ["Gym", "Coding", "Football", "Chess", "Guitar", "Anime"],
-      "current_status": "Currently doing Bachelor in Computer Engineering at IOE WRC"
-    },
-
-    "fun_facts": {
-      "debugging_style": "console.log everywhere",
-      "favorite_error": "Works on my machine",
-      "coffee_dependency": "Critical",
-      "chatgpt_visits": "Daily",
-      "deployment_time": "Always Friday 5PM"
-    }
-  }
-}`,
-                    lines: 32,
-                    size: '2.1KB'
-                },
-                'skills.json': {
-                    content: `{
-  "technical_skills": {
-    "programming_languages": [
-      {
-        "name": "Python",
-        "proficiency": "Experienced",
-        "description": "Data analysis, ML pipelines",
-      },
-      {
-        "name": "C/C++",
-        "proficiency": "Experienced",
-        "description": "Systems programming, algorithms, competitive programming",
-        "use_cases": ["Data structures", "Performance-critical applications", "System-level programming"]
-      },
-      {
-        "name": "JavaScript",
-        "proficiency": "Experienced",
-        "description": "Backend development, API integration",
-        "runtime": ["Node.js"],
-        "frameworks": ["Express.js"]
-      }
-    ],
-    "backend_development": {
-      "frameworks": [
-        {
-          "name": "Node.js",
-          "description": "RESTful APIs, microservices"
-        },
-        {
-          "name": "Express.js",
-          "description": "Web server development, API endpoints"
-        }
-      ]
-    },
-    "databases": {
-      "relational": [
-        {
-          "name": "PostgreSQL",
-          "use_cases": ["Complex queries", "Data integrity", "ACID compliance"]
-        },
-        {
-          "name": "MySQL",
-          "use_cases": ["Web applications", "Data storage", "Performance optimization"]
-        }
-      ],
-      "nosql": [
-        {
-          "name": "MongoDB",
-          "use_cases": ["Document storage", "Flexible schemas", "JSON-like data"]
-        }
-      ]
-    },
-    "machine_learning": {
-      "libraries": [
-        {
-          "name": "NumPy",
-          "description": "Numerical computing, array operations"
-        },
-        {
-          "name": "Pandas",
-          "description": "Data manipulation, analysis, preprocessing"
-        },
-        {
-          "name": "Matplotlib",
-          "description": "Data visualization, plotting, charts"
-        },
-        {
-          "name": "Scikit-Learn",
-          "description": "Traditional ML algorithms, model training"
-        },
-        {
-          "name": "PyTorch",
-          "description": "Deep learning, neural networks, research"
-        },
-        {
-          "name": "TensorFlow",
-          "description": "Machine learning, production ML models"
-        }
-      ]
-    }
-  }
-}`,
-                    lines: 68,
-                    size: '2.8KB'
-                },
-                'experience.json': {
-                    content: `{
-  "work_experience": [
-    {
-      "own_projects": "Backend Developer",
-      "responsibilities": [
-        "Developing RESTful APIs using Node.js and Express",
-        "Implementing authentication and authorization mechanisms",
-        "Optimizing database queries for performance",
-        "Collaborating with frontend developers to integrate user-facing elements"
-      ]
-    }
-  ],
-
-  "why_hire_me": [
-    {
-      "core_value_proposition": "Skilled coder with good humor"
-    }
-  ]
-}`,
-                    lines: 15,
-                    size: '1.2KB'
-                }
-            };
-
-            // Function to update line numbers
-            function updateLineNumbers(content) {
-                const lineNumbers = document.querySelector('.line-numbers');
-                if (lineNumbers) {
-                    const lines = content.split('\\n').length;
-                    let nums = '';
-                    for(let i = 1; i <= lines; i++) {
-                        nums += '<span>' + i + '</span>';
-                    }
-                    lineNumbers.innerHTML = nums;
-                }
-            }
-
-            // Function to switch tab content
-            function switchTabContent(tabName) {
-                const codeContent = document.querySelector('.code-content');
-                const lineCount = document.querySelector('.line-count');
-                const fileSize = document.querySelector('.file-size');
-                
-                if (codeContent && tabContent[tabName]) {
-                    const content = tabContent[tabName];
-                    codeContent.innerHTML = '<pre><code class="json">' + content.content + '</code></pre>';
-                    
-                    if (lineCount) lineCount.textContent = 'Lines: ' + content.lines;
-                    if (fileSize) fileSize.textContent = 'Size: ' + content.size;
-                    
-                    updateLineNumbers(content.content);
-
-                }
-            }
-
-            // Initialize about section with default content
-            switchTabContent('about.json');
-
-            // Setup tab switching
-            const tabs = document.querySelectorAll('.editor-tabs .tab');
-            tabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    tabs.forEach(function(t) { t.classList.remove('active'); });
-                    tab.classList.add('active');
-                    
-                    const tabName = tab.textContent.trim();
-                    switchTabContent(tabName);
-                });
-            });
-
-            // Setup terminal content with tab switching
-            showBashTerminal(); // Load default content
-            
-            // Terminal tab switching functionality
-            const terminalTabs = document.querySelectorAll('.terminal-tabs .tab');
-            terminalTabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    terminalTabs.forEach(function(t) { t.classList.remove('active'); });
-                    tab.classList.add('active');
-                    
-                    const tabName = tab.textContent.trim();
-
-                    
-                    switch(tabName) {
-                        case 'api.log':
-                            showApiLogs();
-                            break;
-                        case 'db.sql':
-                            showDbSql();
-                            break;
-                        case 'bash':
-                        default:
-                            showBashTerminal();
-                            break;
-                    }
-                });
-            });
-            
-            function showBashTerminal() {
-                const terminal = document.getElementById('mainTerminal');
-                if (!terminal) return;
-                
-                terminal.innerHTML = `
-                    <div class="terminal-line">
-                        <span class="prompt">anish@engineer:~/portfolio$</span>
-                        <span class="command">whoami</span>
-                    </div>
-                    <div class="output">Computer Engineer</div>
-                    
-                    <div class="terminal-line">
-                        <span class="prompt">anish@engineer:~/portfolio$</span>
-                        <span class="command">cat profile.json</span>
-                    </div>
-                    <div class="output json-output">
-                        <pre>{
-  "name": "Anish Karki",
-  "role": "Backend Developer || ML Engineer",
-  "specialization": ["Existential Crisis Management"],
-  "current_stack": {
-    "languages": ["Python", "JavaScript", "C/C++"],
-    "frameworks": ["Node.js", "Express.js"],
-    "databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "ml_tools": ["NumPy", "Pandas", "PyTorch", "TensorFlow", "Scikit-Learn"]
-  },
-  "bugs_created": "∞",
-  "bugs_fixed": "∞ - 1",
-  "coffee_consumption": "Lethal levels",
-  "status": "(please hire me, I need therapy money)"
-}</pre>
-                    </div>
-                    
-                    <div class="terminal-line">
-                        <span class="prompt">anish@engineer:~/portfolio$</span>
-                        <span class="command">systemctl status</span>
-                    </div>
-                    <div class="output services-output">
-                        <div class="service-line">   Loaded: loaded (/etc/systemd/system/reality/)</div>
-                        <div class="service-line">   Active: <span class="status-active">barely functioning</span> since birth</div>
-                        <div class="service-line">   Memory: 32GB (31.9GB used by Chrome tabs)</div>
-                    </div>
-                    
-                    <div class="terminal-line active">
-                        <span class="prompt">anish@engineer:~/portfolio$</span>
-                        <span class="command">sudo rm -rf /life</span>
-                        <span class="cursor-blink">_</span>
-                    </div>
-                `;
-
-            }
-            
-            function showApiLogs() {
-                const terminal = document.getElementById('mainTerminal');
-                if (!terminal) return;
-                
-                terminal.innerHTML = `
-                    <div class="log-line error">
-                        <span class="log-timestamp">2024-10-11 14:57:01.000</span>
-                        <span class="log-level">[PANIC]</span>
-                        <span class="log-message">POST /api/v1/hotfix - 500 Internal Server Error | Fix broke more things | Classic Friday deployment</span>
-                    </div>
-                    <div class="log-line success">
-                        <span class="log-timestamp">2024-10-11 15:30:22.555</span>
-                        <span class="log-level">[RESOLVED]</span>
-                        <span class="log-message">GET /api/v1/rollback - 200 OK | Rollback #47 successful | Lesson learned: Never deploy on Friday</span>
-                    </div>
-                    <div class="log-line warning">
-                        <span class="log-timestamp">2024-10-11 15:35:01.337</span>
-                        <span class="log-level">[RETROSPECTIVE]</span>
-                        <span class="log-message">POST /api/v1/postmortem - 201 Created | Action items: 23 | Items actually implemented: TBD</span>
-                    </div>
-                    <div class="log-line error">
-                        <span class="log-timestamp">2024-10-11 10:30:45.123</span>
-                        <span class="log-level">[DEBUGGING]</span>
-                        <span class="log-message">GET /api/v1/bug-hunt - 404 Not Found | "It was working yesterday" - every developer ever</span>
-                    </div>
-                    <div class="log-line warning">
-                        <span class="log-timestamp">2024-10-11 13:00:00.000</span>
-                        <span class="log-level">[LUNCH]</span>
-                        <span class="log-message">GET /api/v1/lunch-break - 403 Forbidden | Lunch is for quitters | Survival mode: ACTIVATED</span>
-                    </div>
-                    <div class="log-line success">
-                        <span class="log-timestamp">2024-10-11 23:59:59.999</span>
-                        <span class="log-level">[EPIPHANY]</span>
-                        <span class="log-message">GET /api/v1/solution - 200 OK | Bug found: Missing semicolon | 8 hours well spent</span>
-                    </div>
-                    <div class="terminal-line active">
-                        <span class="prompt">dev@chaos-server:/var/log$</span>
-                        <span class="command">grep "Friday" api.log | wc -l && echo "reasons to quit"</span>
-                        <span class="cursor-blink">_</span>
-                    </div>
-                `;
-
-            }
-            
-            function showDbSql() {
-                const terminal = document.getElementById('mainTerminal');
-                if (!terminal) return;
-                
-                terminal.innerHTML = `
-                    <div class="sql-query">
-                        <span class="prompt">postgres=#</span>
-                        <span class="command">SELECT * FROM developers WHERE sleep_hours > 4;</span>
-                    </div>
-                    <div class="sql-result">
-                        <div class="sql-info">(0 rows)</div>
-                    </div>
-                    <div class="sql-query">
-                        <span class="prompt">postgres=#</span>
-                        <span class="command">UPDATE developers SET coffee_level = 'CRITICAL' WHERE deadline = 'yesterday';</span>
-                    </div>
-                    <div class="sql-result">
-                        <div class="sql-info">UPDATE 42 rows affected. Caffeine dependency increasing exponentially.</div>
-                    </div>
-                    <div class="sql-query">
-                        <span class="prompt">postgres=#</span>
-                        <span class="command">SELECT COUNT(*) FROM bugs WHERE status = 'it_works_on_my_machine';</span>
-                    </div>
-                    <div class="sql-result">
-                        <div class="table-row header"> count </div>
-                        <div class="table-row">-------</div>
-                        <div class="table-row">   ∞</div>
-                    </div>
-                    <div class="sql-query">
-                        <span class="prompt">postgres=#</span>
-                        <span class="command">CREATE VIEW all_my_regrets AS SELECT * FROM career_decisions WHERE year >= 2020;</span>
-                    </div>
-                    <div class="sql-result">
-                        <div class="sql-info">VIEW created. Warning: May cause existential crisis when queried.</div>
-                    </div>
-                    <div class="terminal-line active">
-                        <span class="prompt">postgres=#</span>
-                        <span class="command">-- ROLLBACK; -- Save me from my own decisions</span>
-                        <span class="cursor-blink">_</span>
-                    </div>
-                `;
-
-            }
-
-            // Setup smooth navigation
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(function(link) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Update active state
-                    navLinks.forEach(function(l) { l.classList.remove('active'); });
-                    link.classList.add('active');
-
-                    // Smooth scroll to section
-                    const targetId = link.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
-                    
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // System Logs functionality
-            const logContent = document.getElementById('logsContent');
-            const logButtons = document.querySelectorAll('.log-btn');
-            
-            const logData = {
-                system: [
-                    { time: '14:32:15', level: 'info', message: 'Backend services initialized successfully' },
-                    { time: '14:32:18', level: 'success', message: 'Database connection established' },
-                    { time: '14:32:22', level: 'info', message: 'Portfolio application started on port 8080' },
-                    { time: '14:32:28', level: 'info', message: 'System monitoring enabled' },
-                    { time: '14:32:35', level: 'success', message: 'All services operational' }
-                ],
-                app: [
-                    { time: '14:30:45', level: 'info', message: 'User session created for portfolio visitor' },
-                    { time: '14:31:28', level: 'info', message: 'Project showcase data loaded' },
-                    { time: '14:32:01', level: 'info', message: 'Navigation interaction logged' },
-                    { time: '14:32:15', level: 'success', message: 'About section JSON parsed successfully' },
-                    { time: '14:32:22', level: 'info', message: 'Portfolio performance optimized' }
-                ],
-                error: [
-                    { time: '14:28:45', level: 'warning', message: 'Slow network response detected' },
-                    { time: '14:29:12', level: 'error', message: 'Failed to load external resource - retrying...' },
-                    { time: '14:30:33', level: 'warning', message: 'High CPU usage detected: 85%' },
-                    { time: '14:31:56', level: 'info', message: 'Portfolio optimization completed successfully' },
-                    { time: '14:32:18', level: 'warning', message: 'Memory usage approaching threshold' }
-                ]
-            };
-
-            function displayLogs(logType) {
-                if (!logContent) return;
-                
-                const logs = logData[logType] || [];
-                logContent.innerHTML = logs.map(function(log) {
-                    return '<div class="log-entry">' +
-                        '<span class="log-timestamp">[' + log.time + ']</span>' +
-                        '<span class="log-level-' + log.level + '">[' + log.level.toUpperCase() + ']</span>' +
-                        ' ' + log.message +
-                        '</div>';
-                }).join('');
-            }
-
-            // Initialize with system logs
-            displayLogs('system');
-
-            // Setup log button switching
-            logButtons.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    logButtons.forEach(function(b) { b.classList.remove('active'); });
-                    // Add active class to clicked button
-                    btn.classList.add('active');
-                    
-                    const logType = btn.getAttribute('data-log');
-                    displayLogs(logType);
-
-                });
-            });
-
-            // Cursor blinking animation
-            setInterval(function() {
-                const cursors = document.querySelectorAll('.cursor-blink');
-                cursors.forEach(function(cursor) {
-                    cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
-                });
-            }, 600);
-
-
-        });
+          },
+          { threshold: 0.15 },
+        );
+        for (var i = 0; i < els.length; i++) observer.observe(els[i]);
+      })();
     </script>
-</body>
+  </body>
 </html>

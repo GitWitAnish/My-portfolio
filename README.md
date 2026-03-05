@@ -1,5 +1,5 @@
+# [anish69.com.np](https://anish69.com.np/)
 
-terminal based vibe coded portfolio.
+my portfolio. nothing fancy just html, css, and js.
 
-
-[anish69.com.np](https://anish69.com.np/)
+vibe coded with copilot, coffee, and questionable life choices.
